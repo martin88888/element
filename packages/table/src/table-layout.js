@@ -59,6 +59,9 @@ class TableLayout {
 
       this.updateHeight();
     } else if (typeof value === 'string') {
+      if (value === '') {
+        el.style[prop] = '';
+      }
       this.updateHeight();
     }
   }
@@ -80,7 +83,8 @@ class TableLayout {
       this.fixedBodyHeight = this.scrollX ? height - this.gutterWidth : height;
     } else {
       const headerHeight = this.headerHeight = headerWrapper.offsetHeight;
-      const bodyHeight = height - headerHeight;
+      const ratio = this.table.showSummary && this.table.data && this.table.data.length > 0 ? 2 : 1;
+      const bodyHeight = height - ratio * headerHeight + (this.table.showSummary ? 1 : 0);
       if (this.height !== null && (!isNaN(this.height) || typeof this.height === 'string')) {
         this.bodyHeight = bodyHeight;
       }

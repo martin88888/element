@@ -6,8 +6,7 @@
     v-show="visible"
     :class="{
       'selected': itemSelected,
-      'is-disabled': disabled || groupDisabled || limitReached,
-      'hover': parent.hoverIndex === index
+      'is-disabled': disabled || groupDisabled || limitReached
     }">
     <slot>
       <span>{{ currentLabel }}</span>
@@ -84,10 +83,10 @@
 
     watch: {
       currentLabel() {
-        if (!this.created) this.dispatch('ElSelect', 'setSelected');
+        if (!this.created && !this.parent.remote) this.dispatch('ElSelect', 'setSelected');
       },
       value() {
-        if (!this.created) this.dispatch('ElSelect', 'setSelected');
+        if (!this.created && !this.parent.remote) this.dispatch('ElSelect', 'setSelected');
       }
     },
 
